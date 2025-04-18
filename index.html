@@ -70,28 +70,16 @@ musica.play().catch(() => {
       audio: "nunca.mp3"
     },
     {
-      texto: "Dar banho no Michel",
+      texto: "Dê banho no Michel",
       audio: "olhar.mp3"
     },
     {
-      texto: "Fazer um brownie pra nós",
+      texto: "Faça um brownie pra gente",
       audio: "gostoso.mp3"
     },
     {
-      texto: "Pagar um sorvete pra nós",
+      texto: "Pague um sorvete pra gente",
       audio: "boso.mp3"
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
   ];
@@ -100,8 +88,6 @@ musica.play().catch(() => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
-
-
 
 
     }
