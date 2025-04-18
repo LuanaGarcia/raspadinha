@@ -1,48 +1,34 @@
-/* Reset e estrutura base */
-html, body {
+/* Reset básico */
+* {
     margin: 0;
     padding: 0;
-    height: 100dvh; /* altura da viewport real, compatível com mobile moderno */
-    overflow: hidden; /* trava rolagem */
-    background: linear-gradient(145deg, #ffe0f0, #fff0fa);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
   }
   
-  /* Container principal da página */
-  main.conteudo-principal {
-    flex: 1;
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(145deg, #ffe0f0, #fff0fa);
+    min-height: 100vh;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 1rem 2rem 3.5rem;
-    box-sizing: border-box;
-    overflow-y: auto; /* só rola internamente se realmente necessário */
-    max-width: 420px;
-    margin: 0 auto;
-    width: 100%;
   }
   
-  
-  /* Rodapé fixo no fim */
-  .rodape {
-    height: auto;
-    background-color: #fff0f5;
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: #888;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-    max-width: 420px;
-    width: 100%;
-    margin: 0 auto;
+  /* Títulos e textos */
+  h1 {
+    font-size: 2.2rem;
+    color: #c71585;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
   }
   
+  p {
+    font-size: 1.1rem;
+    color: #555;
+  }
   
-  
-  /* Telas de boas-vindas e escolha */
+  /* Telas com centralização */
   .tela-inicial {
     display: flex;
     flex-direction: column;
@@ -53,21 +39,7 @@ html, body {
     text-align: center;
   }
   
-  /* Títulos e textos */
-  h1 {
-    font-size: 2.2rem;
-    color: #c71585;
-    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 1rem;
-  }
-  
-  /* Botões estilosos */
+  /* Botões bonitões */
   button {
     padding: 0.9rem 1.8rem;
     font-size: 1.1rem;
@@ -79,7 +51,6 @@ html, body {
     color: white;
     box-shadow: 0 6px 12px rgba(255, 20, 147, 0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin-top: 1rem;
   }
   
   button:hover {
@@ -87,16 +58,15 @@ html, body {
     box-shadow: 0 10px 16px rgba(255, 20, 147, 0.4);
   }
   
-  /* Container das raspadinhas */
+  /* Raspadinhas */
   .raspadinha {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   
-  /* Cartão raspável */
   .item {
     position: relative;
     width: 160px;
@@ -121,7 +91,7 @@ html, body {
     left: 0;
   }
   
-  /* Prêmio escondido */
+  /* Texto escondido dentro da raspadinha */
   .premio-oculto {
     position: absolute;
     top: 0;
@@ -139,20 +109,19 @@ html, body {
     z-index: 0;
   }
   
-  /* Mensagem final */
+  /* Mensagem após raspagem */
   .mensagem {
     font-size: 1.4rem;
+    margin-top: 2rem;
     font-weight: bold;
     color: #8b008b;
     background: #fffafa;
     padding: 1rem 2rem;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
   }
   
-  /* Responsivo */
+  /* Responsividade leve */
   @media (max-width: 480px) {
     .item {
       width: 120px;
