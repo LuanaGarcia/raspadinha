@@ -7,219 +7,182 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-    
-
 <main>
   <!-- Tela de Boas-vindas -->
-<div id="tela-boas-vindas" class="tela-inicial">
-  <h1>🎂 Feliz Aniversário Heloisa! 🎉</h1>
-  <p>Tem uma surpresa esperando por você...</p>
-  <button onclick="abrirSurpresa()">🎈 Abrir Surpresa</button>
-</div>
+  <div id="tela-boas-vindas" class="tela-inicial">
+    <h1>🎂 Feliz Aniversário Heloisa! 🎉</h1>
+    <p>Tem uma surpresa esperando por você...</p>
+    <button onclick="abrirSurpresa()">🎈 Abrir Surpresa</button>
+  </div>
 
+  <!-- Tela de Escolha -->
+  <div id="tela-inicial" class="tela-inicial" style="display: none;">
+    <h1>🎉 Bem-vinda ao seu presente de aniversário! 🎉</h1>
+    <p>Escolha uma das opções abaixo:</p>
+    <button onclick="pegarDoisReais()">💸 R$ 2</button>
+    <button onclick="iniciarRaspadinha()">🎁 Presente Misterioso</button>
+  </div>
 
-<!-- Tela de Escolha -->
-<div id="tela-inicial" class="tela-inicial" style="display: none;">
-  <h1>🎉 Bem-vinda ao seu presente de aniversário! 🎉</h1>
-  <p>Escolha uma das opções abaixo:</p>
-  <button onclick="pegarDoisReais()">💸 R$ 2</button>
-  <button onclick="iniciarRaspadinha()">🎁 Presente Misterioso</button>
-</div>
+  <!-- Raspadinha -->
+  <h1 id="titulo-jogo" style="display: none;">🎉 Raspadinha da Helô 🎉</h1>
+  <p id="texto-jogo" style="display: none;">Raspe e descubra seu presente!💖</p>
+  <div class="raspadinha" id="raspadinha" style="display: none;"></div>
+  <p class="mensagem" id="mensagem" style="display: none;"></p>
+  <button id="btn-finalizar" style="display: none; margin-top: 2rem;" onclick="finalizarRaspadinha()">✨ Finalizar Raspadinha</button>
 
-
-<!-- Raspadinha -->
-<h1 id="titulo-jogo" style="display: none;">🎉 Raspadinha da Helô 🎉</h1>
-<p id="texto-jogo" style="display: none;">Raspe e descubra seu presente!💖</p>
-<div class="raspadinha" id="raspadinha" style="display: none;"></div>
-<p class="mensagem" id="mensagem" style="display: none;"></p>
-<button id="btn-finalizar" style="display: none; margin-top: 2rem;" onclick="finalizarRaspadinha()">✨ Finalizar Raspadinha</button>
-<audio id="audio" preload="auto"></audio>
+  <audio id="audio" preload="auto"></audio>
   <audio id="audioParabens" src="audios/parabens.mp3" loop></audio>
   <audio id="audioTeAmo" src="audios/teamo.mp3" preload="auto"></audio>
 
-
-<script>
-
-function abrirSurpresa() {
-const telaBoasVindas = document.getElementById('tela-boas-vindas');
-const telaInicial = document.getElementById('tela-inicial');
-const musica = document.getElementById('audioParabens');
-
-telaBoasVindas.style.display = 'none';
-telaInicial.style.display = 'flex';
-
-musica.currentTime = 0;
-musica.play().catch(() => {
-  alert("Clique novamente para ativar o som 🎶");
-});
-}
-
-  const finalPremio = {
-    texto: "PIX de R$ 50 — Use com moderação!",
-    audio: "bencaos.mp3"
-  };
-
-  const outrosPremios = [
-    {
-      texto: "Pix para sua irmã querida",
-      audio: "gratidao.mp3"
-    },
-    {
-      texto: "Ganhe uma lembrancinha surpresa",
-      audio: "nunca.mp3"
-    },
-    {
-      texto: "Dar banho no Michel",
-      audio: "olhar.mp3"
-    },
-    {
-      texto: "Fazer um brownie pra nós",
-      audio: "gostoso.mp3"
-    },
-    {
-      texto: "Pagar um sorvete pra nós",
-      audio: "boso.mp3"
+  <script>
+    function abrirSurpresa() {
+      const telaBoasVindas = document.getElementById('tela-boas-vindas');
+      const telaInicial = document.getElementById('tela-inicial');
+      const musica = document.getElementById('audioParabens');
+      telaBoasVindas.style.display = 'none';
+      telaInicial.style.display = 'flex';
+      musica.currentTime = 0;
+      musica.play().catch(() => {
+        alert("Clique novamente para ativar o som 🎶");
+      });
     }
-  ];
 
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+    const finalPremio = {
+      texto: "PIX de R$ 50 — Use com moderação!",
+      audio: "bencaos.mp3"
+    };
+
+    const outrosPremios = [
+      { texto: "Pix para sua irmã querida", audio: "gratidao.mp3" },
+      { texto: "Ganhe uma lembrancinha surpresa", audio: "nunca.mp3" },
+      { texto: "Dar banho no Michel", audio: "olhar.mp3" },
+      { texto: "Fazer um brownie pra nós", audio: "gostoso.mp3" },
+      { texto: "Pagar um sorvete pra nós", audio: "boso.mp3" }
+    ];
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
     }
-  }
 
-  function pegarDoisReais() {
-    const container = document.getElementById('tela-inicial');
-    container.innerHTML = "<h2>Parabéns! Você ganhou R$ 2 🎉</h2><p>(Mas perdeu a chance da raspadinha misteriosa... 😏)</p>";
-  }
+    function pegarDoisReais() {
+      const container = document.getElementById('tela-inicial');
+      container.innerHTML = "<h2>Parabéns! Você ganhou R$ 2 🎉</h2><p>(Mas perdeu a chance da raspadinha misteriosa... 😏)</p>";
+    }
 
-  function iniciarRaspadinha() {
+    function iniciarRaspadinha() {
       document.getElementById('tela-inicial').style.display = 'none';
       document.getElementById('titulo-jogo').style.display = 'block';
       document.getElementById('texto-jogo').style.display = 'block';
       document.getElementById('raspadinha').style.display = 'flex';
       document.getElementById('mensagem').style.display = 'block';
-      pararMusicaParabens(); // << NOVO
+      pararMusicaParabens();
       iniciarJogo();
-  }
+    }
 
-  
-  function pararMusicaParabens() {
-const musica = document.getElementById('audioParabens');
-musica.pause();
-musica.currentTime = 0;
-}
+    function pararMusicaParabens() {
+      const musica = document.getElementById('audioParabens');
+      musica.pause();
+      musica.currentTime = 0;
+    }
 
-  function iniciarJogo() {
-    shuffle(outrosPremios);
-    const premiosVisiveis = outrosPremios.slice(0, 5);
-    const container = document.getElementById('raspadinha');
-    const mensagem = document.getElementById('mensagem');
-    const audio = document.getElementById('audio');
-    let revelados = 0;
+    function iniciarJogo() {
+      shuffle(outrosPremios);
+      const premiosVisiveis = outrosPremios.slice(0, 5);
+      const container = document.getElementById('raspadinha');
+      const mensagem = document.getElementById('mensagem');
+      const audio = document.getElementById('audio');
+      let revelados = 0;
 
-    for (let i = 0; i < 6; i++) {
-      const item = document.createElement('div');
-      item.className = 'item';
+      for (let i = 0; i < 6; i++) {
+        const item = document.createElement('div');
+        item.className = 'item';
 
-      const canvas = document.createElement('canvas');
-      canvas.width = 160;
-      canvas.height = 160;
-      const ctx = canvas.getContext('2d');
+        const canvas = document.createElement('canvas');
+        canvas.width = 160;
+        canvas.height = 160;
+        const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = '#c0c0c0';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.font = 'bold 16px sans-serif';
-      ctx.fillStyle = '#000';
-      ctx.fillText('Raspe aqui 🎁', 20, 80);
+        ctx.fillStyle = '#c0c0c0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = 'bold 16px sans-serif';
+        ctx.fillStyle = '#000';
+        ctx.fillText('Raspe aqui 🎁', 20, 80);
 
-      const hidden = document.createElement('div');
-      hidden.className = 'premio-oculto';
-      hidden.innerText = '';
+        const hidden = document.createElement('div');
+        hidden.className = 'premio-oculto';
+        hidden.innerText = '';
 
-      let isScratching = false;
+        let isScratching = false;
 
-      canvas.addEventListener('mousedown', () => isScratching = true);
-      canvas.addEventListener('mouseup', () => isScratching = false);
-      canvas.addEventListener('mouseleave', () => isScratching = false);
-      canvas.addEventListener('mousemove', (e) => {
-        if (!isScratching) return;
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath();
-        ctx.arc(x, y, 12, 0, Math.PI * 2);
-        ctx.fill();
-      });
+        canvas.addEventListener('mousedown', () => isScratching = true);
+        canvas.addEventListener('mouseup', () => isScratching = false);
+        canvas.addEventListener('mouseleave', () => isScratching = false);
+        canvas.addEventListener('mousemove', (e) => {
+          if (!isScratching) return;
+          const rect = canvas.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.fill();
+        });
 
-      canvas.addEventListener('touchmove', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath();
-        ctx.arc(x, y, 12, 0, Math.PI * 2);
-        ctx.fill();
-      });
+        canvas.addEventListener('touchmove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const touch = e.touches[0];
+          const x = touch.clientX - rect.left;
+          const y = touch.clientY - rect.top;
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.fill();
+        });
 
-      canvas.addEventListener('click', () => {
-        if (hidden.innerText !== '') return;
-
-        revelados++;
-        let premio;
-        if (revelados < 6) {
-          premio = premiosVisiveis.shift();
+        canvas.addEventListener('click', () => {
+          if (hidden.innerText !== '') return;
+          revelados++;
+          let premio;
+          if (revelados < 6) {
+            premio = premiosVisiveis.shift();
           } else {
-          premio = finalPremio;
-          document.getElementById('btn-finalizar').style.display = 'inline-block';
+            premio = finalPremio;
+            document.getElementById('btn-finalizar').style.display = 'inline-block';
           }
 
-        hidden.innerText = premio.texto;
-        mensagem.innerText = premio.texto;
-        audio.src = `audios/${premio.audio}`;
-        audio.play();
-      });
+          hidden.innerText = premio.texto;
+          mensagem.innerText = premio.texto;
+          audio.src = `audios/${premio.audio}`;
+          audio.play();
+        });
 
-      item.appendChild(hidden);
-      item.appendChild(canvas);
-      container.appendChild(item);
+        item.appendChild(hidden);
+        item.appendChild(canvas);
+        container.appendChild(item);
+      }
     }
-  }
-function finalizarRaspadinha() {
-// Parar qualquer música que possa estar tocando
-const audioPremio = document.getElementById('audio');
-const audioParabens = document.getElementById('audioParabens');
-const audioTeAmo = document.getElementById('audioTeAmo');
 
-audioPremio.pause();
-audioPremio.currentTime = 0;
+    function finalizarRaspadinha() {
+      const audioPremio = document.getElementById('audio');
+      const audioParabens = document.getElementById('audioParabens');
+      const audioTeAmo = document.getElementById('audioTeAmo');
 
-audioParabens.pause();
-audioParabens.currentTime = 0;
+      audioPremio.pause();
+      audioPremio.currentTime = 0;
+      audioParabens.pause();
+      audioParabens.currentTime = 0;
 
-audioTeAmo.currentTime = 0;
-audioTeAmo.play();
+      audioTeAmo.currentTime = 0;
+      audioTeAmo.play();
 
-// Mostrar mensagem especial
-const mensagem = document.getElementById('mensagem');
-mensagem.innerText = "Te amo, irmã! Você é meu presente todo dia. 💖";
-
-// Esconder botão de finalizar
-document.getElementById('btn-finalizar').style.display = 'none';
-}
-
-
-</script>
+      const mensagem = document.getElementById('mensagem');
+      mensagem.innerText = "Te amo, irmã! Você é meu presente todo dia. 💖";
+      document.getElementById('btn-finalizar').style.display = 'none';
+    }
+  </script>
 </main>
-
-<footer>
-  Desenvolvido com carinho por Luana Garcia 💖
-</footer>
-
-
 </body>
 </html>
